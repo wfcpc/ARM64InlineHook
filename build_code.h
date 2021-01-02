@@ -3,6 +3,7 @@
 #define BUILD_CODE_H_
 #include "codes_arm64.h"
 #include "registers_arm64.h"
+#include "fix.h"
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
@@ -30,7 +31,7 @@ namespace wfcpc
 			void* new_addr;
 			void** orig_addr;
 		
-			Codes code_before= Codes(100*4);//函数执行前代码
+			Codes code_before= Codes(150*4);//函数执行前代码
 			Codes code_after = Codes(100*4);//函数执行后代码
 			Codes jmp_code = Codes(16);//跳转代码16字节 占用x28寄存器
 			Codes back_up = Codes(16);//备份覆盖的代码

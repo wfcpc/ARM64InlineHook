@@ -40,6 +40,16 @@ namespace wfcpc
                 loop--;
             }
         }
+        void insertReg(bool* boo, int reg, int pos)
+        {
+            int loop = 5;
+            while (loop != 0 && reg != 0)
+            {
+                boo[pos--] = reg % 2;
+                reg /= 2;
+                loop--;
+            }
+        }
         void insertDec(bool* boo, int number, int pos, int width)
         {
             if (number > 0)
@@ -203,6 +213,114 @@ namespace wfcpc
             ans[i++] = 0;
             insertDec(ans, immi, 26, 19);
             insertReg(ans, rt, 31);
+            return binToCode2(ans);
+        }
+        uint32_t ldrImmi(uint32_t offset, int rt, bool x64Ins)
+        {
+            int immi = int(offset);
+            bool ans[32] = { 0 };
+            int i = 0;
+            ans[i++] = 0;
+            ans[i++] = x64Ins;
+            ans[i++] = 0;
+            ans[i++] = 1;
+
+            ans[i++] = 1;
+            ans[i++] = 0;
+            ans[i++] = 0;
+            ans[i++] = 0;
+            insertDec(ans, immi, 26, 19);
+            insertReg(ans, rt, 31);
+            return binToCode2(ans);
+        }
+        uint32_t ldr_immi_unsigned_offst(uint32_t offset,enum registers rn,enum registers rt,bool x64)
+        {
+            int immi = int(offset);
+            bool ans[32]={1,x64,1,1,
+            1,0,0,1,
+            0,1};
+            insertDec(ans,immi,21,12);
+            insertReg(ans, rn, 26);
+            insertReg(ans, rt, 31);
+            return binToCode2(ans);
+
+        }
+        uint32_t ldr_immi_unsigned_offst(uint32_t offset,enum registers rn,int rt,bool x64)
+        {
+            int immi = int(offset);
+            bool ans[32]={1,x64,1,1,
+            1,0,0,1,
+            0,1};
+            insertDec(ans,immi,21,12);
+            insertReg(ans, rn, 26);
+            insertReg(ans, rt, 31);
+            return binToCode2(ans);
+
+        }
+        uint32_t ldr_immi_SIMD_FP_unsigned_offset(uint32_t offset,enum registers rn,int rt,int size)
+        {
+            int immi = int(offset);
+            bool ans[32]={0,0,1,1,
+            1,1,0,1,
+            0,1};
+            switch (size)
+            {
+            case 8:
+                ans[0]=0;
+                ans[1]=0;
+                ans[8]=0;
+                break;
+            case 16:
+                ans[0]=0;
+                ans[1]=1;
+                ans[8]=0;
+                break;
+            case 32:
+                ans[0]=1;
+                ans[1]=0;
+                ans[8]=0;
+                break;
+            case 64:
+                ans[0]=1;
+                ans[1]=1;
+                ans[8]=0;
+                break;
+            case 128:
+                ans[0]=0;
+                ans[1]=0;
+                ans[8]=1;
+                break;
+            default:
+                break;
+            }
+            insertDec(ans,immi,21,12);
+            insertReg(ans, rn, 26);
+            insertReg(ans, rt, 31);
+            return binToCode2(ans);
+        }
+        uint32_t prfm_immi(uint32_t offset,enum registers rn,int rt)
+        {
+            int immi = int(offset);
+            bool ans[32]={1,1,1,1,
+            1,0,0,1,
+            1,0};
+            insertDec(ans,immi,21,12);
+            insertReg(ans, rn, 26);
+            insertReg(ans, rt, 31);
+            return binToCode2(ans);
+        }
+        uint32_t b(uint32_t offset)
+        {
+            int immi=int(offset);
+            bool ans[32]={0,0,0,1,0,1};
+            insertDec(ans,immi,31,26);
+            return binToCode2(ans);
+        }
+        uint32_t bl(uint32_t offset)
+        {
+            int immi=int(offset);
+            bool ans[32]={1,0,0,1,0,1};
+            insertDec(ans,immi,31,26);
             return binToCode2(ans);
         }
 

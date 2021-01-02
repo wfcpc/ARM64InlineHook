@@ -32,7 +32,9 @@ namespace wfcpc
 			int size;
 			uint8_t *code;
 			void emit(uint32_t c);
+			void emit(uint32_t c,int offset);
 			void emit(uint64_t c);
+			void emit(uint64_t c,int offset);
 			void * code_address;
 			void show_code_addr();
 		};

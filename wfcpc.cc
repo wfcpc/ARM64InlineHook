@@ -53,7 +53,7 @@ float func2(int *base1)
 int main()
 {
     using namespace std;
-  Inlinehook(  (void*)func1, (void *) new_hook_func1,
+    Inlinehook(  (void*)func1, (void *) new_hook_func1,
                         (void **) &orig_hook_func1);
     int a=12,b=23,c=34;
     int *aa;

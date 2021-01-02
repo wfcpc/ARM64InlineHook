@@ -79,13 +79,18 @@ namespace wfcpc
         void insertDec(bool * boo,int number,int pos,int width);
         uint32_t ldrImmi(uint32_t offset, enum registers rt, bool x64Ins);
         void insertReg(bool* boo, enum registers register_, int pos);
+        void insertReg(bool* boo, int reg, int pos);
+        uint32_t ldrImmi(uint32_t offset, int rt, bool x64Ins);
+        uint32_t ldr_immi_unsigned_offst(uint32_t offset,enum registers rn,enum registers rt,bool x64);
         uint32_t br(enum registers rn);
         uint64_t reverseAddr(uint64_t addr);
         uint32_t binToCode2(bool* boo);
+        uint32_t prfm_immi(uint32_t offset,enum registers rn,int rt);
         uint32_t  blr(enum registers rn);
+        uint32_t ldr_immi_unsigned_offst(uint32_t offset,enum registers rn,int rt,bool x64);
         uint32_t ret();
         uint32_t ldp_signed_offset(int32_t imm, enum registers rt2, enum registers rn, enum registers rt1, bool x64Ins);
-
+        uint32_t ldr_immi_SIMD_FP_unsigned_offset(uint32_t offset,enum registers rn,int rt,int size);
         uint32_t sub(uint16_t imm,enum registers rn,enum registers rd);
         void insertOffset(bool* boo, int number, int pos, int width, bool x64Ins);
         uint32_t stp(int32_t imm, enum registers rt2, enum registers rn, enum registers rt1, bool x64Ins);
@@ -96,6 +101,8 @@ namespace wfcpc
         uint32_t mrs_NZCV(enum registers rt);
         uint32_t msr_NZCV(enum registers rt);
         uint32_t mov_Reg(enum registers rn,enum registers rd,bool Reg64);
+        uint32_t b(uint32_t offset);
+        uint32_t bl(uint32_t offset);
         uint32_t nop();
 
         int get_need_fix_Ins_offset(uint32_t ins);
