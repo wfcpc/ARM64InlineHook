@@ -1,2 +1,21 @@
 # ARM64InlineHook
-## 待补充pc相关指令修复
+## pc相关指令修复
+  ADR
+  ADRP
+  B_Cond
+  B
+  BL
+  BLR
+  BLRAAZ
+  BLRAA
+  BLRABZ
+  BLRAB
+  CBNZ
+  CBZ
+  LDR_LITERAL
+  LDRSW_LITERAL
+  PRFM_LITERAL
+  TBNZ
+  TBZ
+  LDR_LITERAL_SIMD_FP
+
