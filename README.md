@@ -1,5 +1,6 @@
-# ARM64InlineHook
-## pc相关指令修复
+
+# Fixed
+## Instruction Repair
   ADR
   ADRP
   B_Cond
@@ -18,6 +19,5 @@
   TBNZ
   TBZ
   LDR_LITERAL_SIMD_FP
+## Multi-threaded
 
-## 已解决
-多线程问题
