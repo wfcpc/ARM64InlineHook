@@ -1,5 +1,5 @@
 ﻿// wfcpc.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-// g++ build_code.cc codes_arm64.cc inlinehook_arm64.cc registers_arm64.cc wfcpc.cc -o out
+// g++ build_code.cc codes_arm64.cc inlinehook_arm64.cc registers_arm64.cc wfcpc.cc fix.cc -o out
 
 #include <iostream>
 #include "inlinehook_arm64.h"
@@ -11,8 +11,10 @@
 
 
 HOOK_DEF(float, hook_func1,int* base1,int*  base2,int*  base3) {
-    float handle = orig_hook_func1(base1,base2,base3);
     using namespace std;
+    cout<<"hook func1 running~"<<endl;
+    float handle = orig_hook_func1(base1,base2,base3);
+    
     cout<<"got orig ret value = "<<handle<<endl;
     cout<<"arg1="<<base1<<endl;
     cout<<"arg2="<<base2<<endl;
@@ -55,6 +57,7 @@ int main()
     using namespace std;
     Inlinehook(  (void*)func1, (void *) new_hook_func1,
                         (void **) &orig_hook_func1);
+    sleep(1.5);
     int a=12,b=23,c=34;
     int *aa;
     int *bb;
@@ -73,6 +76,7 @@ int main()
     int *dd;
     dd=&d;
     Inlinehook((void *)func2,(void *)new_hook_func2,(void **)&orig_hook_func2);
+    sleep(1.5);
     cout<<"------in main-------"<<endl;
     cout<<"dd addr="<<dd<<endl;
     float ret2=func2(dd);

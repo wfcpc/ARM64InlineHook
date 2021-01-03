@@ -82,6 +82,10 @@ namespace wfcpc
         void insertReg(bool* boo, int reg, int pos);
         uint32_t ldrImmi(uint32_t offset, int rt, bool x64Ins);
         uint32_t ldr_immi_unsigned_offst(uint32_t offset,enum registers rn,enum registers rt,bool x64);
+        uint32_t str_immi_unsigned_offst(uint32_t offset,enum registers rn,int rt,bool x64);
+        uint32_t str_immi_unsigned_offst(uint32_t offset,enum registers rn,enum registers rt,bool x64);
+        uint32_t str_immi_SIMD_FP_unsigned_offset(uint32_t offset,enum registers rn,enum registers rt,int size);
+        uint32_t ldr_literal_SIMD_FP_unsigned_offset(uint32_t offset,enum registers rt,int size);
         uint32_t br(enum registers rn);
         uint64_t reverseAddr(uint64_t addr);
         uint32_t binToCode2(bool* boo);

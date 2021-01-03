@@ -257,6 +257,71 @@ namespace wfcpc
             return binToCode2(ans);
 
         }
+        uint32_t str_immi_unsigned_offst(uint32_t offset,enum registers rn,enum registers rt,bool x64)
+        {
+            int immi = int(offset);
+            bool ans[32]={1,x64,1,1,
+            1,0,0,1,
+            0,0};
+            insertDec(ans,immi,21,12);
+            insertReg(ans, rn, 26);
+            insertReg(ans, rt, 31);
+            return binToCode2(ans);
+
+        }
+        uint32_t str_immi_unsigned_offst(uint32_t offset,enum registers rn,int rt,bool x64)
+        {
+            int immi = int(offset);
+            bool ans[32]={1,x64,1,1,
+            1,0,0,1,
+            0,0};
+            insertDec(ans,immi,21,12);
+            insertReg(ans, rn, 26);
+            insertReg(ans, rt, 31);
+            return binToCode2(ans);
+
+        }
+        uint32_t str_immi_SIMD_FP_unsigned_offset(uint32_t offset,enum registers rn,enum registers rt,int size)
+        {
+            int immi = int(offset);
+            bool ans[32]={0,0,1,1,
+            1,1,0,1,
+            0,0};
+            switch (size)
+            {
+            case 8:
+                ans[0]=0;
+                ans[1]=0;
+                ans[8]=0;
+                break;
+            case 16:
+                ans[0]=0;
+                ans[1]=1;
+                ans[8]=0;
+                break;
+            case 32:
+                ans[0]=1;
+                ans[1]=0;
+                ans[8]=0;
+                break;
+            case 64:
+                ans[0]=1;
+                ans[1]=1;
+                ans[8]=0;
+                break;
+            case 128:
+                ans[0]=0;
+                ans[1]=0;
+                ans[8]=1;
+                break;
+            default:
+                break;
+            }
+            insertDec(ans,immi,21,12);
+            insertReg(ans, rn, 26);
+            insertReg(ans, rt, 31);
+            return binToCode2(ans);
+        }
         uint32_t ldr_immi_SIMD_FP_unsigned_offset(uint32_t offset,enum registers rn,int rt,int size)
         {
             int immi = int(offset);
@@ -295,6 +360,32 @@ namespace wfcpc
             }
             insertDec(ans,immi,21,12);
             insertReg(ans, rn, 26);
+            insertReg(ans, rt, 31);
+            return binToCode2(ans);
+        }
+        uint32_t ldr_literal_SIMD_FP_unsigned_offset(uint32_t offset,enum registers rt,int size)
+        {
+            int immi = int(offset);
+            bool ans[32]={0,0,0,1,
+            1,1,0,0,};
+            switch (size)
+            {
+            case 32:
+                ans[0]=0;
+                ans[1]=0;
+                break;
+            case 64:
+                ans[0]=0;
+                ans[1]=1;
+                break;
+            case 128:
+                ans[0]=1;
+                ans[1]=0;
+                break;
+            default:
+                break;
+            }
+            insertDec(ans,immi,26,19);
             insertReg(ans, rt, 31);
             return binToCode2(ans);
         }

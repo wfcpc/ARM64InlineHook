@@ -32,13 +32,14 @@ namespace wfcpc
 			void** orig_addr;
 		
 			Codes code_before= Codes(150*4);//函数执行前代码
-			Codes code_after = Codes(100*4);//函数执行后代码
+			Codes code_after = Codes(200*4);//函数执行后代码
 			Codes jmp_code = Codes(16);//跳转代码16字节 占用x28寄存器
 			Codes back_up = Codes(16);//备份覆盖的代码
 		
 
 			void* func_before;//函数执行前函数
 			void* func_after;
+			void* stack;
 			int pagesize;//页大小
 			
 			void set_mem_RWE();//设置内存属性read write exec
