@@ -19,5 +19,5 @@
   TBNZ
   TBZ
   LDR_LITERAL_SIMD_FP
-## Multi-threaded
+## Multi-function hook
 
